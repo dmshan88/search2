@@ -3,4 +3,5 @@
 /runtime/*
 /vendor/*
 /www/assets/*
+/www/absbimage/*
 !.gitignore
