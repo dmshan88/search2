@@ -6,7 +6,7 @@ use Yii;
 
 class PAbsbFile extends AbsbFile
 {
-	private $modelflag = 'Pointcare';
+	protected $modelflag = 'Pointcare';
     public static function getDb()
     {
         return Yii::$app->get('mongodb_p');

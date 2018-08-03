@@ -60,13 +60,13 @@ class MachineErr extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id' => 'ID',
-            'errcode' => 'Errcode',
-            'errdatetime' => 'Errdatetime',
-            'hardware1version' => 'Hardware1version',
-            'hardware2version' => 'Hardware2version',
-            'machineid' => 'Machineid',
-            'softversion' => 'Softversion',
-            'summary' => 'Summary',
+            'errcode' => '错误码',
+            'errdatetime' => '时间',
+            'hardware1version' => '硬件1',
+            'hardware2version' => '硬件2',
+            'machineid' => '设备编号',
+            'softversion' => '软件',
+            'summary' => '报错信息',
         ];
     }
 }

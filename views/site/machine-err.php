@@ -40,7 +40,6 @@ $this->title = $modelflag.' MACHINE ERRORS';
 </div>
 <div class="panel-result-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= $this->render('_search_machine-err', ['model' => $searchModel,'modelflag'=>$modelflag,'action'=>'machine-err']) ?>
     <?= GridView::widget([

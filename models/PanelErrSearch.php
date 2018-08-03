@@ -109,4 +109,15 @@ class PanelErrSearch extends PanelErr
 
         return $dataProvider;
     }
+    public function attributeLabels()
+    {
+        return array_merge(
+            PanelErr::attributeLabels(),
+            [
+                'errname' => '报错',
+                'createdFrom' => '开始时间',
+                'createdTo' => '结束时间',
+            ]
+            );
+    }
 }

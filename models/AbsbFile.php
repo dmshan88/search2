@@ -9,7 +9,7 @@ class AbsbFile extends ActiveRecord
 {
 	// private $name;
 	public $basename = '';
-	private $modelflag = '';
+	protected $modelflag = '';
 	private $absbdata = [];
 	const ABSB_IMAGE = 'absbimage';
 
@@ -50,7 +50,7 @@ class AbsbFile extends ActiveRecord
             $cmd = '7z e '.$tmpfile.' -o'.$tmppath;
             $ret = exec($cmd);
 
-            $data = [];
+            $data = [0=>[]];
             //show生成图像
 
             $files=glob($tmppath."/*.txt");
@@ -63,10 +63,23 @@ class AbsbFile extends ActiveRecord
             foreach ($files as $value) {
                 $itemname = basename($value, '.txt');
                 $filecontent=file_get_contents($value);
+                // if (stripos($value,'deviceinfo.txt')) {
+                //     $deviceinfo=$filecontent;
+                // }
+                // else{
+                //     $xgdarr=getxgd($filecontent);
+                //     makeimage($xgdarr,sprintf('%s/%s.jpg',$imagepath,$itemname),$itemname);
+                //     $data[] = [
+                //         'name' => $itemname,
+                //         'content' => $filecontent,
+                //     ];
+                // }
                 if (stripos($value,'deviceinfo.txt')) {
-                    $deviceinfo=$filecontent;
-                }
-                else{
+                    $data[0] = [
+                        'name' => 'deviceinfo',
+                        'content' => $filecontent,
+                    ];
+                } else {
                     $xgdarr=getxgd($filecontent);
                     makeimage($xgdarr,sprintf('%s/%s.jpg',$imagepath,$itemname),$itemname);
                     $data[] = [

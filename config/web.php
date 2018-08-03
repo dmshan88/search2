@@ -23,10 +23,13 @@ $config = [
                 'application/json' => 'yii\web\JsonParser',
             ]
         ],
-        // 'db' => $db,
+        'mysql' => $db['mysql'],
         'mongodb_c' => $db['mongodb_c'],
         'mongodb_p' => $db['mongodb_p'],
         'mongodb_a' => $db['mongodb_a'],
+        'user' => [
+            'identityClass' => 'app\models\User',
+        ],
         'log' => [
             'targets' => [
                 [
@@ -39,7 +42,7 @@ $config = [
      ], 
     // 'defaultRoute' => 'fapan', 
     // 'defaultController' => 'index' 
-    // 'language' => 'zh-CN',
+    'language' => 'zh-CN',
     'language' => 'en-US',
     'timeZone' => 'Asia/Shanghai',
     'sourceLanguage' => 'en-US',

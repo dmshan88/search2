@@ -24,17 +24,34 @@ AppAsset::register($this);
 <header>
     <div class="container">
     <?php
-    NavBar::begin(['brandLabel' => 'HOME']);
+
+
+    NavBar::begin(['brandLabel' => '主页']);
+    $menuItems = [
+        ['label' => '生化', 'url' => ['/site/result']],
+        ['label' => '盘片报错', 'url' => ['/site/error']],
+        ['label' => '设备报错', 'url' => ['/site/machine-err']],
+        ['label' => '质控', 'url' => ['/site/qcresult']],
+        ['label' => '在线状态', 'url' => Yii::$app->params['URL_MQTT']],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
+    } else {
+        // if (condition) {
+            $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
+        // }
+        $menuItems[] = ['label' => '重置', 'url' => ['/site/reset-password']];
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                '退出 (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+    }
     echo Nav::widget([
-        'items' => [
-            // ['label' => 'HOME', 'url' => ['/site/index']],
-            ['label' => 'PANEL RESULT', 'url' => ['/site/result']],
-            ['label' => 'PANEL ERROR', 'url' => ['/site/error']],
-            ['label' => 'MACHINE ERROR', 'url' => ['/site/machine-err']],
-            ['label' => 'QC RESULT', 'url' => ['/site/qcresult']],
-            ['label' => 'ONLINE / POSITION', 'url' => Yii::$app->params['URL_MQTT']],
-            // ['label' => 'About', 'url' => ['/site/about']],
-        ],
+        'items' => $menuItems,
         'options' => ['class' => 'navbar-nav'],
     ]);
     NavBar::end();

@@ -115,4 +115,16 @@ class PanelResultSearch extends PanelResult
         $query->addOrderBy(['_id' => SORT_DESC]);
         return $dataProvider;
     }
+    
+    public function attributeLabels()
+    {
+        return array_merge(
+            PanelResult::attributeLabels(),
+            [
+                'errname' => '报错',
+                'createdFrom' => '开始时间',
+                'createdTo' => '结束时间',
+            ]
+            );
+    }
 }

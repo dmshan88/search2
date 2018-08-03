@@ -6,7 +6,11 @@ use Yii;
 
 use yii\web\Controller;
 use yii\data\ArrayDataProvider;
-
+use app\models\User;
+use app\models\LoginForm;
+use app\models\PasswordResetRequestForm;
+use app\models\ResetPasswordForm;
+use app\models\SignupForm;
 /**
  * PanelErrController implements the CRUD actions for PanelErr model.
  */
@@ -15,8 +19,63 @@ class SiteController extends Controller
 
     public function actionTest($modelflag = '')
     {
-
+      $model = new User;
+      var_dump($model->find()->one());  
     }
+        /**
+     * Logs in a user.
+     *
+     * @return mixed
+     */
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        } else {
+            $model->password = '';
+
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
+    }
+    /**
+     * Signs user up.
+     *
+     * @return mixed
+     */
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+    /**
+     * Logs out the current user.
+     *
+     * @return mixed
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+
     /**
      * Lists all PanelErr models.
      * @return mixed
@@ -29,6 +88,9 @@ class SiteController extends Controller
     }
     public function actionResult($modelflag = '')
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['login']);
+        }
         if ($modelflag == 'Celercare') {
             $modelname = 'app\models\CPanelResultSearch';
         } else if ($modelflag == 'APP') {
@@ -49,6 +111,9 @@ class SiteController extends Controller
     }
     public function actionError($modelflag = '')
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['login']);
+        }
         if ($modelflag == 'Celercare') {
             $modelname = 'app\models\CPanelErrSearch';
         } else if ($modelflag == 'APP') {
@@ -69,6 +134,9 @@ class SiteController extends Controller
     }
     public function actionMachineErr($modelflag = '')
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['login']);
+        }
         if ($modelflag == 'Celercare') {
             $modelname = 'app\models\CMachineErrSearch';
         } else if ($modelflag == 'APP') {
@@ -88,6 +156,9 @@ class SiteController extends Controller
     }
     public function actionQcresult($modelflag = '')
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['login']);
+        }
         if ($modelflag == 'Celercare') {
             $modelname = 'app\models\CPanelQcresultSearch';
         } else if ($modelflag == 'APP') {
@@ -108,8 +179,9 @@ class SiteController extends Controller
     }
     public function actionAbsbimage($modelflag = '', $name = '')
     {
-        // var_dump($modelflag);
-        // var_dump($name);
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['login']);
+        }
         if ($modelflag == 'Celercare') {
             $modelname = 'app\models\CAbsbFile';
         } else if ($modelflag == 'APP') {
@@ -137,5 +209,32 @@ class SiteController extends Controller
         } else {
 
         }
+    }
+        /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionResetPassword()
+    {
+        // try {
+        //     $model = new ResetPasswordForm($token);
+        // } catch (InvalidParamException $e) {
+        //     throw new BadRequestHttpException($e->getMessage());
+        // }
+        // var_dump(Yii::$app->user->id);
+        // $model = Yii::$app->user;
+        $model = new ResetPasswordForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'New password saved.');
+
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
+            'model' => $model,
+        ]);
     }
 }

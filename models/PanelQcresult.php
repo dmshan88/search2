@@ -66,22 +66,24 @@ class PanelQcresult extends \yii\mongodb\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
     public function attributeLabels()
     {
         return [
             '_id' => 'ID',
-            'machineid' => 'Machineid',
-            'panelid' => 'Panelid',
-            'panellot' => 'Panellot',
-            'panelindex' => 'Panelindex',
-            'chkdatetime' => 'Chkdatetime',
-            'softversion' => 'Softversion',
-            'hardware1version' => 'Hardware1version',
-            'hardware2version' => 'Hardware2version',
-            'name' => 'Name',
+            'chkdatetime' => '检测时间',
+            'machineid' => '设备编号',
+            'panelid' => '盘片',
+            'panellot' => '批号',
+            'panelindex' => '唯一码',
+            'softversion' => '软件',
+            'hardware1version' => '硬件1',
+            'hardware2version' => '硬件2',
+            // 'hardware3version' => '硬件3',
+            'name' => '项目',
             'lot' => 'Lot',
-            'result' => 'Result',
-            'unit' => 'Unit',
+            'result' => '结果',
+            'unit' => '单位',
         ];
     }
 }

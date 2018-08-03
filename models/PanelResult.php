@@ -73,19 +73,19 @@ class PanelResult extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id' => 'ID',
-            'chkdatetime' => 'Chkdatetime',
-            'errcode' => 'Errcode',
-            'hardware1version' => 'Hardware1version',
-            'hardware2version' => 'Hardware2version',
-            'hardware3version' => 'Hardware3version',
-            'machineid' => 'Machineid',
-            'panelid' => 'Panelid',
-            'panelindex' => 'Panelindex',
-            'panellot' => 'Panellot',
-            'patientinfo' => 'Patientinfo',
-            'sampletype' => 'Sampletype',
-            'softversion' => 'Softversion',
-            'testresults' => 'Testresults',
+            'chkdatetime' => '检测时间',
+            'errcode' => '错误码',
+            'hardware1version' => '硬件1',
+            'hardware2version' => '硬件2',
+            'hardware3version' => '硬件3',
+            'machineid' => '设备编号',
+            'panelid' => '盘片',
+            'panelindex' => '唯一码',
+            'panellot' => '批号',
+            'patientinfo' => '病人信息',
+            'sampletype' => '样本类型',
+            'softversion' => '软件',
+            'testresults' => '检测结果',
         ];
     }
 }

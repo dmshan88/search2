@@ -40,7 +40,6 @@ $this->title = $modelflag.' Panel ERRORS';
 </div>
 <div class="panel-result-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= $this->render('_search', ['model' => $searchModel,'modelflag'=>$modelflag,'action'=>'error']) ?>
     <?= GridView::widget([
@@ -77,7 +76,7 @@ $this->title = $modelflag.' Panel ERRORS';
             'softversion',
 			'summary',
             [
-                'attribute' => 'file',
+                'attribute' => '吸光度',
                 'format' => 'html',
                 'content' => function ($model,$key, $index, $column) 
                 use($modelflag) {
@@ -86,7 +85,7 @@ $this->title = $modelflag.' Panel ERRORS';
                         str_pad($model->panelid, 2, '0', STR_PAD_LEFT),
                         $model->chkdatetime
                     );
-                    return Html::a($name, ['absbimage', 'modelflag' => $modelflag, 'name' => $name], ['target'=>'_blank']); 
+                    return Html::a('查看', ['absbimage', 'modelflag' => $modelflag, 'name' => $name], ['target'=>'_blank']); 
                 }
             ],
         ],
