@@ -54,7 +54,8 @@ $this->title = $modelflag.' Panel ERRORS';
                 'format' => 'text',
                 'content' => function ($model,$key, $index, $column) {
                     return date('y-m-d H:i', $model->chkdatetime); 
-                }
+                },
+                'contentOptions' => ['nowrap' => 'nowrap'],
             ],
             // 'hardware1version',
             // 'hardware2version',
@@ -67,7 +68,8 @@ $this->title = $modelflag.' Panel ERRORS';
                 'content' => function ($model,$key, $index, $column) {
                     $array = Yii::$app->params['PANEL_NAME']; 
                     return $array[$model->panelid]; 
-                }
+                },
+                'contentOptions' => ['nowrap' => 'nowrap'],
             ],
             'panellot',
             'panelindex',
@@ -86,7 +88,8 @@ $this->title = $modelflag.' Panel ERRORS';
                         $model->chkdatetime
                     );
                     return Html::a('查看', ['absbimage', 'modelflag' => $modelflag, 'name' => $name], ['target'=>'_blank']); 
-                }
+                },
+                'contentOptions' => ['nowrap' => 'nowrap'],
             ],
         ],
     ]); ?>

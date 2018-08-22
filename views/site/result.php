@@ -54,7 +54,8 @@ $this->title = $modelflag.' Panel Results';
                 'format' => 'text',
                 'content' => function ($model,$key, $index, $column) {
                     return date('y-m-d H:i', $model->chkdatetime); 
-                }
+                },
+                'contentOptions' => ['nowrap' => 'nowrap'],
             ],
             // 'hardware1version',
             // 'hardware2version',
@@ -67,13 +68,36 @@ $this->title = $modelflag.' Panel Results';
                 'content' => function ($model,$key, $index, $column) {
                     $array = Yii::$app->params['PANEL_NAME']; 
                     return $array[$model->panelid]; 
-                }
+                },
+                'contentOptions' => ['nowrap' => 'nowrap'],
             ],
             'panellot',
             'panelindex',
             //'patientinfo',
             //'sampletype',
             'softversion',
+            [
+                'attribute' => '结果',
+                'format' => 'html',
+                'content' => function ($model,$key, $index, $column) {
+                    $resultarr = [];
+                    foreach ($model->testresults as $item => $itemarr) {
+                        if ($itemarr[1] >= $itemarr[5]) {
+                            $color = 'red';
+                        } elseif ($itemarr[1] <= $itemarr[4]) {
+                            $color = 'blue';
+                        } else {
+                            $color = 'black';
+                        }
+                        
+                        $resultarr[$itemarr[0]] = sprintf("<span title = '%s参考范围: %s - %s 线性范围: %s - %s %s'>%s:<font color='%s'>%s</font></span>",$item ,$itemarr[2], $itemarr[3],$itemarr[4], $itemarr[5], $itemarr[6], $item, $color, $itemarr[1]);
+                    }
+                    ksort($resultarr);
+                    return implode('; ', $resultarr);
+
+                    // return var_dump($result); 
+                },
+            ],
             [
                 'attribute' => '吸光度',
                 'format' => 'html',
@@ -85,7 +109,8 @@ $this->title = $modelflag.' Panel Results';
                         $model->chkdatetime
                     );
                     return Html::a('查看', ['absbimage', 'modelflag' => $modelflag, 'name' => $name], ['target'=>'_blank']); 
-                }
+                },
+                'contentOptions' => ['nowrap' => 'nowrap'],
             ],
         ],
     ]); ?>

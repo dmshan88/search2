@@ -19,8 +19,7 @@ class SiteController extends Controller
 
     public function actionTest($modelflag = '')
     {
-      $model = new User;
-      var_dump($model->find()->one());  
+        return $this->render('test');
     }
         /**
      * Logs in a user.
