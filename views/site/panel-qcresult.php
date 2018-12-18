@@ -65,8 +65,9 @@ $this->title = $modelflag.' Panel QC Results';
                 'attribute' => 'panelid',
                 'format' => 'text',
                 'content' => function ($model,$key, $index, $column) {
-                    $array = Yii::$app->params['PANEL_NAME']; 
-                    return $array[$model->panelid]; 
+		    $array = Yii::$app->params['PANEL_NAME']; 
+                    $panelid = $model->panelid;
+                    return array_key_exists($panelid, $array) ? $array[$panelid] : "unknown".$panelid; 
                 }
             ],
             'panellot',

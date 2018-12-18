@@ -12,10 +12,10 @@ $this->title = 'Infomation';
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>
-<p>为了兼容APP设备及降低服务器负载，旧版查询系统预计将于2018-9-1停用；</p>
-<p>新版查询系统所有密码已重置为123456，请登录后修改密码；</p>
-<p>需求变更请联系 软件部 单金龙；</p>
+<p></p>
+<p></p>
+<p></p>
 
-<?php echo Html::a('旧版入口',Yii::$app->params['URL_OLD_SEARCH']) ?>
+<?php //echo Html::a('旧版入口',Yii::$app->params['URL_OLD_SEARCH']) ?>
 
 </div>
