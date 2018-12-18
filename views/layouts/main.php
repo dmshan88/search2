@@ -38,7 +38,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
     } else {
         // if (condition) {
-            $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
+           // $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
         // }
         $menuItems[] = ['label' => '重置', 'url' => ['/site/reset-password']];
         $menuItems[] = '<li>'
