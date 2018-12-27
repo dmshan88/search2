@@ -41,7 +41,7 @@ $this->title = $modelflag.' Panel ERRORS';
 <div class="panel-result-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?= $this->render('_search', ['model' => $searchModel,'modelflag'=>$modelflag,'action'=>'error']) ?>
+    <?= $this->render('_search_error', ['model' => $searchModel,'modelflag'=>$modelflag,'action'=>'error']) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,

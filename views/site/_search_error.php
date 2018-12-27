@@ -30,12 +30,7 @@ use yii\jui\DatePicker;
         echo $form->field($model, 'errname')
             ->dropDownList(Yii::$app->params['ERROR_NAME'] ,['prompt'=>'Select...']); 
     ?>
-    <?php 
-        echo $form->field($model, 'itemname')
-            ->dropDownList(Yii::$app->params['ITEM_NAME'] ,['prompt'=>'Select...']); 
-    ?>
-    <?php  echo $form->field($model, 'leftvalue') ?>
-    <?php  echo $form->field($model, 'rightvalue') ?>
+
     <?php // echo $form->field($model, 'panelindex') ?>
 
     <?php // echo $form->field($model, 'patientinfo') ?>

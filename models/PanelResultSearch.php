@@ -22,13 +22,16 @@ class PanelResultSearch extends PanelResult
      */
     public $createdTo;
     public $errname;
+    public $itemname;
+    public $leftvalue;
+    public $rightvalue;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['_id', 'chkdatetime', 'errcode', 'hardware1version', 'hardware2version', 'hardware3version', 'machineid', 'panelid', 'panelindex', 'panellot', 'patientinfo', 'sampletype', 'softversion', 'testresults','createdFrom','createdTo','errname'], 'safe'],
+            [['_id', 'chkdatetime', 'errcode', 'hardware1version', 'hardware2version', 'hardware3version', 'machineid', 'panelid', 'panelindex', 'panellot', 'patientinfo', 'sampletype', 'softversion', 'testresults','createdFrom','createdTo','errname','itemname','leftvalue','rightvalue'], 'safe'],
         ];
     }
 
@@ -91,6 +94,15 @@ class PanelResultSearch extends PanelResult
         if (!empty($this->createdTo)) {
             $query->andFilterWhere(['<', 'chkdatetime', strtotime($this->createdTo)+24*3600]);
         }
+        if (!empty($this->itemname)) {
+            $itemname = $this->itemname;
+            if (!empty($this->leftvalue)) {
+                $query->andFilterWhere(['>=', "testresults.$itemname.1", floatval($this->leftvalue)]);
+            }
+            if (!empty($this->rightvalue)) {
+                $query->andFilterWhere(['<=', "testresults.$itemname.1", floatval($this->rightvalue)]);
+            }
+        }
         if (strlen($this->errname)) {
             switch ($this->errname) {
                 case 'no'://无报错
@@ -121,6 +133,9 @@ class PanelResultSearch extends PanelResult
         return array_merge(
             PanelResult::attributeLabels(),
             [
+                'itemname' => '项目',
+                'leftvalue' => '左值',
+                'rightvalue' => '右值',
                 'errname' => '报错',
                 'createdFrom' => '开始时间',
                 'createdTo' => '结束时间',
