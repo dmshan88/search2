@@ -32,6 +32,7 @@ AppAsset::register($this);
         ['label' => '盘片报错', 'url' => ['/site/error']],
         ['label' => '设备报错', 'url' => ['/site/machine-err']],
         ['label' => '质控', 'url' => ['/site/qcresult']],
+        ['label' => '设备统计', 'url' => ['/site/machine-total']],
         ['label' => '在线状态', 'url' => Yii::$app->params['URL_MQTT']],
     ];
     if (Yii::$app->user->isGuest) {

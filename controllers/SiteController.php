@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
+use app\models\TotalSearch;
 /**
  * PanelErrController implements the CRUD actions for PanelErr model.
  */
@@ -19,7 +20,22 @@ class SiteController extends Controller
 
     public function actionTest($modelflag = '')
     {
-        return $this->render('test');
+        echo "string";
+        // $tmp = Yii::$app->mongodb_p->createCommand()->count('position', ['machineid' => ' 42030']);
+        // $tmp = Yii::$app->mongodb_p->getCollection('position')->count(['machineid' => ' 42030']);
+        $tmp = Yii::$app->mongodb_p->createCommand();
+            // ->aggregate('panel_result', [
+            //     [
+            //         '$group' => [
+            //             '_id' => '$machineid',
+            //             'result' => ['$sum' => 1],
+            //             'soft' => ['$max' => '$softversion'],
+            //             'type' => ['$max' => '$panelid'], 
+            //         ]
+            //     ]
+            // ]);
+        var_dump($tmp);
+        // return $this->render('test');
     }
         /**
      * Logs in a user.
@@ -176,6 +192,30 @@ class SiteController extends Controller
             'modelflag' => $modelflag,
         ]);
     }
+
+    public function actionMachineTotal($modelflag = '', $name = '')
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['login']);
+        }
+        if ($modelflag == 'Celercare') {
+            $connection = Yii::$app->mongodb_c;
+        } else if ($modelflag == 'APP') {
+            $connection = Yii::$app->mongodb_a;
+        } else {
+            $connection = Yii::$app->mongodb_p;
+            $modelflag = 'Pointcare';
+        }
+        $searchModel = new TotalSearch();
+        $data = $searchModel->search($connection, Yii::$app->request->queryParams);
+        return $this->render('machine-total', [
+            'searchModel' => $searchModel,
+            // 'dataProvider' => $dataProvider,
+            'data' => $data,
+            'modelflag' => $modelflag,
+        ]);
+    }
+
     public function actionAbsbimage($modelflag = '', $name = '')
     {
         if (Yii::$app->user->isGuest) {
@@ -218,13 +258,6 @@ class SiteController extends Controller
      */
     public function actionResetPassword()
     {
-        // try {
-        //     $model = new ResetPasswordForm($token);
-        // } catch (InvalidParamException $e) {
-        //     throw new BadRequestHttpException($e->getMessage());
-        // }
-        // var_dump(Yii::$app->user->id);
-        // $model = Yii::$app->user;
         $model = new ResetPasswordForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
