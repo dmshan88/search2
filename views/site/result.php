@@ -100,6 +100,35 @@ $this->title = $modelflag.' Panel Results';
                 },
             ],
             [
+                'attribute' => '信息',
+                'format' => 'html',
+                'content' => function ($model,$key, $index, $column) {
+                    $html = "";
+                    $patientinfo = $model->patientinfo;
+                    if (array_key_exists("sex", $patientinfo) && !empty($patientinfo['sex'])) {
+                        $color = 'black';
+                        $sex = $patientinfo['sex'];
+                        if (in_array($sex, ['female', '雌性', '女'])) {
+                            $color = 'red';
+                        } else if (in_array($sex, ['male', '雄性', '男'])) {
+                            $color = 'blue';
+                        }
+                        $html .= sprintf("<font color='%s'>%s</font>", $color , $sex);
+                    }
+                    if (array_key_exists("species", $patientinfo) && !empty($patientinfo['species'])) {
+                        $color = 'black';
+                        $species = $patientinfo['species'];
+                        if (in_array($species, ['Dog', '狗'])) {
+                            $color = 'gold';
+                        } else if (in_array($species, ['Cat', '猫'])) {
+                            $color = 'pink';
+                        }
+                        $html .= sprintf("<font color='%s'>%s</font>", $color , $species);
+                    }
+                    return $html;
+                },
+            ],
+            [
                 'attribute' => '吸光度',
                 'format' => 'html',
                 'content' => function ($model,$key, $index, $column) 
