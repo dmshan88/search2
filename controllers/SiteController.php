@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-
+use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use yii\data\ArrayDataProvider;
 use app\models\User;
@@ -54,7 +54,7 @@ class SiteController extends Controller
         } else {
             $model->password = '';
 
-            return $this->render('login', [
+            return $this->renderPartial('login', [
                 'model' => $model,
             ]);
         }
@@ -97,9 +97,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        
+        if (Yii::$app->user->isGuest) {
+            throw new NotFoundHttpException;
+        }          
         return $this->render('index', [
         ]);
+
     }
     public function actionResult($modelflag = '')
     {
